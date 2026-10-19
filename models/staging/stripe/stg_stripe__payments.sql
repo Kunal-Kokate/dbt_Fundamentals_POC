@@ -2,7 +2,7 @@ with
 
 source as (
 
-    select * from raw.stripe.payment
+    select * from {{ source('stripe', 'payment') }}
 
 ),
 
@@ -14,6 +14,7 @@ renamed as (
         paymentmethod as payment_method,
         status as payment_status,
         amount as payment_amount,
+        amount / 100 as amount,
         created as payment_created,
         _batched_at
 
